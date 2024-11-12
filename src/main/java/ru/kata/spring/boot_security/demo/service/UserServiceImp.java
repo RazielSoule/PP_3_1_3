@@ -46,6 +46,11 @@ public class UserServiceImp implements UserService {
       return userRepository.findById(id).orElse(null);
    }
 
+   @Override
+   public User getUserByUsername(String username) {
+      return userRepository.findByEmail(username).orElse(null);
+   }
+
    @Transactional
    @Override
    public void deleteUser(int id) {

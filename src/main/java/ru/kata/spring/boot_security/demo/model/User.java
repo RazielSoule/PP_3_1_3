@@ -15,22 +15,15 @@ public class User {
    private Long id;
 
    @Column(name = "name")
-   @NotEmpty(message = "Enter first name")
-   @Size(min = 2, max = 50, message = "wrong name length")
    private String firstName;
 
    @Column(name = "last_name")
-   @NotEmpty(message = "Enter last name")
-   @Size(min = 2, max = 50, message = "wrong name length")
    private String lastName;
 
    @Column(name = "password")
-   @NotEmpty(message = "Enter password")
    private String password;
 
    @Column(name = "email")
-   @NotEmpty(message = "Enter email")
-   @Email(message = "Enter correct email")
    private String email;
 
    @Column(name = "age")
