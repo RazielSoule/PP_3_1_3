@@ -26,7 +26,7 @@ public class GuestController {
     @GetMapping(value = "/createAdmin")
     public String createAdmin() {
         if (userDetailsServiceImp.loadUserByUsername("admin@adm.in") == null) {
-            userServiceImp.addUser(new User("admin", "admin", "admin", "admin@adm.in", roleServiceImp.getRoles()));
+            userServiceImp.addUser(new User("admin", "admin", 999, "admin", "admin@adm.in", roleServiceImp.getRoles()));
         }
         return "redirect:/login";
     }

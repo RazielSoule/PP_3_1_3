@@ -1,9 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.List;
 
@@ -35,7 +33,10 @@ public class User {
    @Email(message = "Enter correct email")
    private String email;
 
-   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   @Column(name = "age")
+   private int age;
+
+   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
    @JoinTable(
          name = "users_roles",
          joinColumns = @JoinColumn(name = "user_id"),
@@ -44,9 +45,10 @@ public class User {
 
    public User() {}
 
-   public User(String firstName, String lastName, String password, String email, List<Role> roles) {
+   public User(String firstName, String lastName, int age, String password, String email, List<Role> roles) {
       this.firstName = firstName;
       this.lastName = lastName;
+      this.age = age;
       this.password = password;
       this.email = email;
       this.roles = roles;
@@ -98,5 +100,13 @@ public class User {
 
    public void setPassword(String password) {
       this.password = password;
+   }
+
+   public int getAge() {
+      return age;
+   }
+
+   public void setAge(int age) {
+      this.age = age;
    }
 }

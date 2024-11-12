@@ -13,7 +13,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "id")
     private Long id;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<User> users;
 
     @Column(name = "role_name")
