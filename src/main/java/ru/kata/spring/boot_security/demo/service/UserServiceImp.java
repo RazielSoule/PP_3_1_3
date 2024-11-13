@@ -64,4 +64,11 @@ public class UserServiceImp implements UserService {
       user.setPassword(passwordEncoder.encode(user.getPassword()));
       userRepository.save(user);
    }
+
+   @Transactional
+   @Override
+   public void updateUser(User user) {
+      user.setPassword(passwordEncoder.encode(user.getPassword()));
+      userRepository.save(user);
+   }
 }

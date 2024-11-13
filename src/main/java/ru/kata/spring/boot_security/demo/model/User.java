@@ -15,18 +15,23 @@ public class User {
    private Long id;
 
    @Column(name = "name")
+   @NotNull
    private String firstName;
 
    @Column(name = "last_name")
+   @NotNull
    private String lastName;
 
    @Column(name = "password")
+   @NotNull
    private String password;
 
    @Column(name = "email")
+   @NotNull
    private String email;
 
    @Column(name = "age")
+   @NotNull
    private int age;
 
    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

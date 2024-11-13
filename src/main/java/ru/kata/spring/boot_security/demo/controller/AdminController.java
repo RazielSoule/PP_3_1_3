@@ -47,13 +47,13 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping(value = "/edit-user-{id}")
-    public String editUser(@PathVariable(value = "id") int id, @ModelAttribute("user") @Valid User user, BindingResult result) {
+    @PostMapping(value = "/edit-user")
+    public String editUser(@ModelAttribute("user") @Valid User user, BindingResult result) {
         if (result.hasErrors()) {
             System.out.println("error on editing user");
             return "redirect:/admin";
         }
-        userService.updateUser(id, user);
+        userService.updateUser(user);
         return "redirect:/admin";
     }
 
