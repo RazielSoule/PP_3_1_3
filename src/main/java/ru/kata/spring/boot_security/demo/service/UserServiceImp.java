@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import jakarta.validation.constraints.Null;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
@@ -31,7 +30,7 @@ public class UserServiceImp implements UserService {
    public void addUser(User user) {
       user.setPassword(passwordEncoder.encode(user.getPassword()));
       if(user.getRoles() == null) {
-         user.setRoles(List.of(roleRepository.findById(2).orElse(null)));
+         user.setRoles(List.of(roleRepository.findByRoleName("ROLE_USER").orElseThrow()));
       }
       userRepository.save(user);
    }
@@ -42,7 +41,7 @@ public class UserServiceImp implements UserService {
    }
 
    @Override
-   public User getUser(int id) {
+   public User getUser(Long id) {
       return userRepository.findById(id).orElse(null);
    }
 
@@ -53,22 +52,28 @@ public class UserServiceImp implements UserService {
 
    @Transactional
    @Override
-   public void deleteUser(int id) {
+   public void deleteUser(Long id) {
       userRepository.deleteById(id);
    }
 
    @Transactional
    @Override
-   public void updateUser(int id, User user) {
-      user.setId((long) id);
-      user.setPassword(passwordEncoder.encode(user.getPassword()));
+   public void updateUser(Long id, User user) {
+      user.setId(id);
+      if (!user.getPassword().equals(userRepository.findById(user.getId()).orElseThrow().getPassword()))
+         user.setPassword(passwordEncoder.encode(user.getPassword()));
+      if (user.getRoles() == null)
+         user.setRoles(userRepository.findById(user.getId()).orElseThrow().getRoles());
       userRepository.save(user);
    }
 
    @Transactional
    @Override
    public void updateUser(User user) {
-      user.setPassword(passwordEncoder.encode(user.getPassword()));
+      if (!user.getPassword().equals(userRepository.findById(user.getId()).orElseThrow().getPassword()))
+         user.setPassword(passwordEncoder.encode(user.getPassword()));
+      if (user.getRoles() == null)
+         user.setRoles(userRepository.findById(user.getId()).orElseThrow().getRoles());
       userRepository.save(user);
    }
 }
